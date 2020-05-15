@@ -10,11 +10,13 @@
     "@types/node": "^12.12.37",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
+    "@types/styled-components": "^5.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
+    "styled-components": "^5.1.0",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -44,12 +46,9 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm test",
+      "pre-push": "npm test",
+      "...": "..."
     }
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix"
-    ]
   }
 }
