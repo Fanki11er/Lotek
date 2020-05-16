@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { lottoBidObj, bidColorSchema } from '../../../utils/types';
+import { bidColorSchema } from '../../../utils/types';
+import { LottoBid } from '../../../utils/classes';
 import NumberBall from '../../atoms/NumberBall/NumberBall';
 
 const StyledBidRow = styled.li`
@@ -8,10 +9,22 @@ const StyledBidRow = styled.li`
   justify-content: space-around;
   width: 95%;
   height: 30px;
+  padding: 3px 0;
   margin-top: 5px;
   border: 1px solid ${({ theme }) => theme.green};
   border-radius: 5px;
   background-color: ${({ theme }) => theme.transparentGreen};
+  animation-name: show;
+  animation-duration: 0.7s;
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const StyledLabel = styled.div`
@@ -26,7 +39,12 @@ const StyledNumbersWrapper = styled.div`
   align-items: center;
 `;
 
-const BidListRow = (props: { bid: lottoBidObj; schema: bidColorSchema }) => {
+interface Props {
+  bid: LottoBid;
+  schema: bidColorSchema;
+}
+
+const BidListRow = (props: Props) => {
   const {
     bid: { bidId, bidDate, numbers },
     schema,
@@ -41,8 +59,10 @@ const BidListRow = (props: { bid: lottoBidObj; schema: bidColorSchema }) => {
   };
   return (
     <StyledBidRow>
-      <StyledLabel>{`${bidId} ${bidDate}`}</StyledLabel>
-      <StyledNumbersWrapper>{renderNumbers(numbers)}</StyledNumbersWrapper>
+      <StyledLabel data-testid={'bid-label'}>{`${bidId} ${bidDate}`}</StyledLabel>
+      <StyledNumbersWrapper data-testid={'bid-numbers'}>
+        {renderNumbers(numbers)}
+      </StyledNumbersWrapper>
     </StyledBidRow>
   );
 };

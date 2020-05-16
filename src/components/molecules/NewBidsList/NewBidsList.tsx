@@ -37,25 +37,20 @@ const StyledList = styled.ul`
   padding: 0;
   height: 155px;
   align-items: center;
-  overflow-x: hidden;
-  ::-webkit-scrollbar {
-    width: 15px;
-    background-color: ${({ theme }) => theme.primary};
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.green};
-    border-radius: 10px;
-    border: 3px solid;
-    border: none;
-  }
 `;
 
-const NewBidsList = (props: {
+const StyledInfo = styled.div`
+  color: ${({ theme }) => theme.lightRed};
+  font-size: ${({ theme }) => theme.fontSizeDesktop.normal};
+`;
+
+interface Props {
   schema: bidColorSchema;
   bidName: string;
   newBidsList: LottoBid[];
-}) => {
+}
+
+const NewBidsList = (props: Props) => {
   const { schema, bidName, newBidsList } = props;
 
   const renderBidRows = (newBidsList: LottoBid[]) => {
@@ -64,7 +59,13 @@ const NewBidsList = (props: {
   return (
     <StyledWrapper schema={schema}>
       <StyledHeader schema={schema}>{bidName}</StyledHeader>
-      <StyledList>{renderBidRows(newBidsList)}</StyledList>
+      {newBidsList.length ? (
+        <StyledList className={'withScroll'} data-testid={'new-bids-list'}>
+          {renderBidRows(newBidsList)}
+        </StyledList>
+      ) : (
+        <StyledInfo data-testid={'info-div'}>Brak elementów do wyświetlenia</StyledInfo>
+      )}
       <StyledButton>Dodaj</StyledButton>
     </StyledWrapper>
   );

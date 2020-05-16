@@ -1,4 +1,4 @@
-import { RegexObj, whiteSigns, lottoBidObj } from './types';
+import { RegexObj, whiteSigns } from './types';
 import { LottoBid } from './classes';
 import { idRegExp, dateRegExp, lottoNumbersRegExp, notNecessarySigns } from './regExps';
 export const checkForBids = (
@@ -84,7 +84,7 @@ export const makeLottoBidObj = (bid: string): LottoBid => {
   return new LottoBid(bidId, bidDate, bidNumbers);
 };
 
-export const notExistingBid = (allBidsArr: lottoBidObj[], testedBid: lottoBidObj): boolean => {
+export const notExistingBid = (allBidsArr: LottoBid[], testedBid: LottoBid): boolean => {
   let result = true;
   allBidsArr.forEach(({ bidId }) => {
     if (testedBid.bidId === bidId) {
@@ -97,10 +97,10 @@ export const notExistingBid = (allBidsArr: lottoBidObj[], testedBid: lottoBidObj
 export const createNewBidsList = (
   plainContent: string,
   settings: RegexObj,
-  allBidsArr: lottoBidObj[],
+  allBidsArr: LottoBid[],
   matchFunc: Function,
-): lottoBidObj[] => {
-  const resultArr: lottoBidObj[] = [];
+): LottoBid[] => {
+  const resultArr: LottoBid[] = [];
   const bidsArr = makeArrayOfBids(plainContent, settings, matchFunc);
   bidsArr.forEach((bid) => {
     const newBid = makeLottoBidObj(bid);
@@ -111,13 +111,13 @@ export const createNewBidsList = (
   return resultArr;
 };
 
-export const sortAllBidsArr = (allBidsArr: lottoBidObj[]): lottoBidObj[] => {
+export const sortAllBidsArr = (allBidsArr: LottoBid[]): LottoBid[] => {
   return allBidsArr.sort((firstBid, secondBid) => {
     return Number(secondBid.bidId) - Number(firstBid.bidId);
   });
 };
 
-export const findMissingBids = (allBidsArr: lottoBidObj[]): number[] => {
+export const findMissingBids = (allBidsArr: LottoBid[]): number[] => {
   const missingBids: number[] = [];
   let startBidId = Number(allBidsArr[0].bidId);
   const lastIndex = allBidsArr.length - 1;
@@ -136,15 +136,15 @@ export const findMissingBids = (allBidsArr: lottoBidObj[]): number[] => {
   return missingBids;
 };
 
-export const popOldBids = (bidsArr: lottoBidObj[], bidsToPop: number) => {
+export const popOldBids = (bidsArr: LottoBid[], bidsToPop: number) => {
   for (let i = 0; i < bidsToPop; i++) bidsArr.pop();
 };
 
 export const mergeBids = (
-  allBidsArr: lottoBidObj[],
-  newBids: lottoBidObj[],
+  allBidsArr: LottoBid[],
+  newBids: LottoBid[],
   arrSize?: number,
-): lottoBidObj[] => {
+): LottoBid[] => {
   const processArr = [...allBidsArr];
   const maxLength = arrSize ? arrSize : 100;
   const lengthDifference = allBidsArr.length + newBids.length - maxLength;

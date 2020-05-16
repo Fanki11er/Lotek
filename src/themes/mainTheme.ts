@@ -32,5 +32,5 @@ export const lottoColorSchema: bidColorSchema = {
 
 export const lottoPlusColorSchema: bidColorSchema = {
   mainColor: theme.lottoPlusBlue,
-  secondColor: 'white',
+  secondColor: 'black',
 };

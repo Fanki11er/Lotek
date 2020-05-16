@@ -20,17 +20,6 @@ const StyledListsWrapper = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   justify-content: space-around;
-  ::-webkit-scrollbar {
-    width: 15px;
-    background-color: ${({ theme }) => theme.primary};
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.green};
-    border-radius: 10px;
-    border: 3px solid;
-    border: none;
-  }
 `;
 
 const StyledHeader = styled.div`
@@ -45,7 +34,7 @@ const MissingBidsInfo = () => {
   return (
     <StyledWrapper>
       <StyledHeader>Brakujące losowania</StyledHeader>
-      <StyledListsWrapper>
+      <StyledListsWrapper className={'withScroll'}>
         <MissingBidsList elements={[6602, 6603, 6605, 6606, 6607, 6666]} />
         <MissingBidsList elements={[6602, 6603]} dotColor={lottoPlusBlue} />
       </StyledListsWrapper>

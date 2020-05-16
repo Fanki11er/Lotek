@@ -1,7 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
+import theme from './mainTheme';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
 
 
     *, *::before, *::after {
@@ -25,6 +27,23 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         overflow-x: hidden;
         
+    }
+
+    .withScroll {
+        overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 15px;
+    background-color: ${theme.primary};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.green};
+    border-radius: 10px;
+    border: 3px solid;
+    border: none;
+    
+  }
+
     }
 `;
 

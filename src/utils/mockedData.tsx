@@ -48,6 +48,9 @@ Super Szansa	2852	02-05-20, sobota
 5
 `;
 
+export const loremIpsum =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac scelerisque libero. Nunc nisi enim, malesuada elementum mattis at, posuere ut sapien. Vestibulum id massa elementum, posuere orci in, molestie massa. Donec eros mi, dapibus in pharetra at, luctus vitae purus. Suspendisse ac efficitur mi. Aliquam nisi lectus, volutpat eu felis sed, tristique pretium sapien. Quisque lacinia nisi sed sollicitudin interdum. Vestibulum felis tellus, placerat sit amet felis non, imperdiet fermentum nunc.';
+
 export const stringWithoutBids: string =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend leo eu erat sagittis tincidunt. Nulla gravida dignissim nulla, nec molestie nibh. Nullam nec nisi at elit sodales efficitur. Sed scelerisque mauris sed eros maximus, ac maximus dui consequat.';
 

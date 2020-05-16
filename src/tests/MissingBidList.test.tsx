@@ -1,6 +1,6 @@
 import React from 'react';
-import MissingBidsList from './MissingBidsList';
-import { renderWithTheme } from '../../../utils/testUtils';
+import MissingBidsList from '../components/atoms/MissingBidsList/MissingBidsList';
+import { renderWithTheme } from '../utils/testUtils';
 
 describe('<MissingBidsList />', () => {
   test('with dotColor props has color from prop', () => {

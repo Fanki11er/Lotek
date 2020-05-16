@@ -22,7 +22,11 @@ const StyledButtonsWrapper = styled.div`
   min-height: 100%;
 `;
 
-const GetNewBidsForm = (props: { getList: Function }) => {
+interface Props {
+  getList(plainString: string): void;
+}
+
+const GetNewBidsForm = (props: Props) => {
   const { getList } = props;
   const plainInput = useRef<HTMLTextAreaElement>(null);
 
@@ -38,9 +42,16 @@ const GetNewBidsForm = (props: { getList: Function }) => {
         handleForm(event, plainInput);
       }}
     >
-      <NewBidsInput rows={5} placeholder={'Podaj dane do analizy'} ref={plainInput} />
+      <NewBidsInput
+        rows={5}
+        placeholder={'Podaj dane do analizy'}
+        ref={plainInput}
+        data-testid={'plain-input'}
+      />
       <StyledButtonsWrapper>
-        <StandardButton type={'submit'}>Analizuj</StandardButton>
+        <StandardButton type={'submit'} data-testid={'submit-button'}>
+          Analizuj
+        </StandardButton>
         <StyledButton type={'reset'}>Resetuj</StyledButton>
       </StyledButtonsWrapper>
     </StyledForm>

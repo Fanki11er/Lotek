@@ -7,7 +7,7 @@ import {
   singeLottoBidOb,
   listWithMissingBids,
   mergedBidsArr,
-} from './mockedData';
+} from '../utils/mockedData';
 import {
   makeArrayOfBids,
   checkForBids,
