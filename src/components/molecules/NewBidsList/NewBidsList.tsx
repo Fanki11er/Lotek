@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { bidColorSchema } from '../../../utils/types';
-import StandardButton from '../../atoms/StandardButton/StandardButton';
+import { useDispatch } from 'react-redux';
+import { bidColorSchema, bidsTypes } from '../../../utils/types';
 import { LottoBid } from '../../../utils/classes';
+import StandardButton from '../../atoms/StandardButton/StandardButton';
 import BidListRow from '../BidsListRow/BidListRow';
 
 const StyledWrapper = styled.div`
@@ -46,12 +47,24 @@ const StyledInfo = styled.div`
 
 interface Props {
   schema: bidColorSchema;
-  bidName: string;
   newBidsList: LottoBid[];
+  buttonActions: {
+    merge: (newBidsList: LottoBid[]) => any;
+    reset: (type: string) => void;
+    bidType: bidsTypes;
+  };
+  bidName: string;
 }
 
 const NewBidsList = (props: Props) => {
-  const { schema, bidName, newBidsList } = props;
+  let {
+    schema,
+    bidName,
+    newBidsList,
+    buttonActions: { merge, reset, bidType },
+  } = props;
+
+  const dispatch = useDispatch();
 
   const renderBidRows = (newBidsList: LottoBid[]) => {
     return newBidsList.map((bid, index) => <BidListRow bid={bid} schema={schema} key={index} />);
@@ -66,7 +79,15 @@ const NewBidsList = (props: Props) => {
       ) : (
         <StyledInfo data-testid={'info-div'}>Brak elementów do wyświetlenia</StyledInfo>
       )}
-      <StyledButton>Dodaj</StyledButton>
+      <StyledButton
+        onClick={() => {
+          dispatch(merge(newBidsList));
+          reset(bidType);
+        }}
+        data-testid={'add-button'}
+      >
+        Dodaj
+      </StyledButton>
     </StyledWrapper>
   );
 };

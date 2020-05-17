@@ -1,12 +1,18 @@
 import React from 'react';
 import NewBidGetter from '../components/organisms/NewBidsGetter/NewBidsGetter';
 import { fireEvent, waitForElement } from '@testing-library/react';
-import { renderWithTheme } from '../utils/testUtils';
-import { lottoTestStringWithTwoBids, loremIpsum } from '../utils/mockedData';
+import { renderWithStore } from '../utils/testUtils';
+import {
+  lottoTestStringWithTwoBids,
+  loremIpsum,
+  lottoTestStringWithThreeBids,
+  lottoTestStringWithTwoBidsOneRepeat,
+} from '../utils/mockedData';
+import { testStore } from '../utils/testUtils';
 
 describe('<NewBidsGetter />', () => {
   test('shows list of new bids if there are some in the string taken by input', () => {
-    const { queryByTestId, queryAllByTestId } = renderWithTheme(<NewBidGetter />);
+    const { queryByTestId, queryAllByTestId } = renderWithStore(<NewBidGetter />);
     const input: any = queryByTestId('plain-input');
     const submitButton: any = queryByTestId('submit-button');
     const [list] = queryAllByTestId('new-bids-list');
@@ -41,7 +47,7 @@ describe('<NewBidsGetter />', () => {
   });
 
   test('shows empty list of new bids if there are no bids in the string taken by input', () => {
-    const { queryByTestId, queryAllByTestId } = renderWithTheme(<NewBidGetter />);
+    const { queryByTestId, queryAllByTestId } = renderWithStore(<NewBidGetter />);
     const input: any = queryByTestId('plain-input');
     const submitButton: any = queryByTestId('submit-button');
     const [list] = queryAllByTestId('new-bids-list');
@@ -67,5 +73,32 @@ describe('<NewBidsGetter />', () => {
 
     //? Input is cleaned
     expect(input.value).toBe('');
+  });
+});
+
+describe('<NewBidsGetter /> with store', () => {
+  test('adds bids to  empty  store', () => {
+    const { queryByTestId, queryAllByTestId } = renderWithStore(<NewBidGetter />);
+    const lottoAllBids = testStore.getState().lottoBids.bids;
+    const submitButton: any = queryByTestId('submit-button');
+    const [addButton]: any = queryAllByTestId('add-button');
+    const input: any = queryByTestId('plain-input');
+    const addBids = (mockValue: string) => {
+      fireEvent.change(input, { target: { value: mockValue } });
+      fireEvent.click(submitButton);
+      fireEvent.click(addButton);
+    };
+
+    expect(lottoAllBids).toEqual([]);
+    expect(submitButton).toBeInTheDocument();
+    expect(input).toBeInTheDocument();
+    expect(addButton).toBeInTheDocument();
+
+    addBids(lottoTestStringWithTwoBids);
+    expect(testStore.getState().lottoBids.bids.length).toBe(2);
+    addBids(lottoTestStringWithTwoBids);
+    expect(testStore.getState().lottoBids.bids.length).toBe(2);
+    addBids(lottoTestStringWithTwoBidsOneRepeat);
+    expect(testStore.getState().lottoBids.bids.length).toBe(3);
   });
 });

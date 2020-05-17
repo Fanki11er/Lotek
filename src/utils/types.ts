@@ -1,3 +1,5 @@
+import store from '../store/store';
+import { LottoBid } from './classes';
 export enum whiteSigns {
   tab = '\t',
   eol = '\n',
@@ -49,3 +51,15 @@ export type bidColorSchema = {
   mainColor: string;
   secondColor: string;
 };
+
+export type lottoReducerInitialState = {
+  bids: LottoBid[];
+  numbersStats: number[];
+};
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export enum bidsTypes {
+  lotto = 'lotto',
+  lottoPlus = 'lottoPlus',
+}
