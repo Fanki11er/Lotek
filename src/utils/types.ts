@@ -42,6 +42,7 @@ export type mainTheme = {
     smaller: string;
     normal: string;
     larger: string;
+    large: string;
   };
 
   fontSizeMobile: {};
@@ -63,3 +64,8 @@ export enum bidsTypes {
   lotto = 'lotto',
   lottoPlus = 'lottoPlus',
 }
+
+export type SingleNumbersStats = {
+  ballNumber: number;
+  quantity: number;
+};

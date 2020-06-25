@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import MissingBidsList from '../../atoms/MissingBidsList/MissingBidsList';
-import { mainTheme } from '../../../utils/types';
-import theme from '../../../themes/mainTheme';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -23,20 +21,31 @@ const StyledListsWrapper = styled.div`
 `;
 
 const StyledHeader = styled.div`
-  color: ${(props: { theme: mainTheme }) => theme.lightRed};
-  font-size: ${(props: { theme: mainTheme }) => theme.fontSizeDesktop.normal};
+  color: ${({ theme }) => theme.lightRed};
+  font-size: ${({ theme }) => theme.fontSizeDesktop.normal};
   margin: 10px 15px;
   text-align: center;
 `;
+interface Props {
+  missingBids: {
+    missingLottoBids: number[];
+    missingLottoPlusBids: number[];
+  };
+}
 
-const MissingBidsInfo = () => {
+const MissingBidsInfo = (props: Props) => {
+  const {
+    missingBids: { missingLottoBids, missingLottoPlusBids },
+  } = props;
+
+  //console.log(missingLottoBids, missingLottoPlusBids);
   const { lottoPlusBlue } = useContext(ThemeContext);
   return (
     <StyledWrapper>
       <StyledHeader>Brakujące losowania</StyledHeader>
       <StyledListsWrapper className={'withScroll'}>
-        <MissingBidsList elements={[6602, 6603, 6605, 6606, 6607, 6666]} />
-        <MissingBidsList elements={[6602, 6603]} dotColor={lottoPlusBlue} />
+        <MissingBidsList elements={missingLottoBids} />
+        <MissingBidsList elements={missingLottoPlusBids} dotColor={lottoPlusBlue} />
       </StyledListsWrapper>
     </StyledWrapper>
   );

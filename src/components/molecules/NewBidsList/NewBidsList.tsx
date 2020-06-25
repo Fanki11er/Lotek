@@ -67,7 +67,7 @@ const NewBidsList = (props: Props) => {
   const dispatch = useDispatch();
 
   const renderBidRows = (newBidsList: LottoBid[]) => {
-    return newBidsList.map((bid, index) => <BidListRow bid={bid} schema={schema} key={index} />);
+    return newBidsList.map((bid) => <BidListRow bid={bid} schema={schema} key={bid.bidId} />);
   };
   return (
     <StyledWrapper schema={schema}>

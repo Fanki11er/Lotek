@@ -36,9 +36,9 @@ const StyledListElement = styled.li`
 `;
 
 const renderListElements = (elements: number[], dotColor?: string) => {
-  return elements.map((listElement, index) => {
+  return elements.map((listElement) => {
     return (
-      <StyledListElement color={dotColor} key={index} data-testid={'test-li'}>
+      <StyledListElement color={dotColor} key={listElement} data-testid={'test-li'}>
         {listElement}
       </StyledListElement>
     );

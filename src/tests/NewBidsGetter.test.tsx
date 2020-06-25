@@ -96,9 +96,14 @@ describe('<NewBidsGetter /> with store', () => {
 
     addBids(lottoTestStringWithTwoBids);
     expect(testStore.getState().lottoBids.bids.length).toBe(2);
-    addBids(lottoTestStringWithTwoBids);
-    expect(testStore.getState().lottoBids.bids.length).toBe(2);
-    addBids(lottoTestStringWithTwoBidsOneRepeat);
-    expect(testStore.getState().lottoBids.bids.length).toBe(3);
+    setTimeout(() => {
+      addBids(lottoTestStringWithTwoBids);
+      expect(testStore.getState().lottoBids.bids.length).toBe(2);
+    }, 100);
+
+    setTimeout(() => {
+      addBids(lottoTestStringWithTwoBidsOneRepeat);
+      expect(testStore.getState().lottoBids.bids.length).toBe(3);
+    }, 100);
   });
 });

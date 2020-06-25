@@ -18,6 +18,7 @@ const theme: mainTheme = {
     smaller: '0.8em',
     normal: '1em',
     larger: '1.3em',
+    large: '1.8em',
   },
 
   fontSizeMobile: {},

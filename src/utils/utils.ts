@@ -119,13 +119,15 @@ export const sortAllBidsArr = (allBidsArr: LottoBid[]): LottoBid[] => {
 
 export const findMissingBids = (allBidsArr: LottoBid[]): number[] => {
   const missingBids: number[] = [];
-  let startBidId = Number(allBidsArr[0].bidId);
-  const lastIndex = allBidsArr.length - 1;
-  const lastBid = Number(allBidsArr[lastIndex].bidId);
-  const difference = lastBid - startBidId;
+  if (!allBidsArr.length) return missingBids;
+
+  let startBidId = Number(allBidsArr[0].bidId); // 6605
+  const lastIndex = allBidsArr.length - 1; // 3
+  const lastBid = Number(allBidsArr[lastIndex].bidId); //6614
+  const difference = startBidId - lastBid;
 
   if (difference + lastIndex !== allBidsArr.length && allBidsArr.length) {
-    for (let i = 0, j = startBidId; i < difference + lastIndex; i++, j++) {
+    for (let i = 0, j = startBidId; i < difference + 1; i++, j--) {
       const missing = allBidsArr.filter(({ bidId }) => {
         return Number(bidId) === j;
       });
@@ -133,6 +135,7 @@ export const findMissingBids = (allBidsArr: LottoBid[]): number[] => {
       if (!missing.length) missingBids.push(j);
     }
   }
+
   return missingBids;
 };
 
@@ -154,4 +157,30 @@ export const mergeBids = (
     processArr.unshift(bid);
   });
   return sortAllBidsArr(processArr);
+};
+
+export const countPrimaryNumbers = (
+  bidsArr: LottoBid[],
+  maxNumbers: number,
+  numberOfBids: number,
+): [string, number][] => {
+  const counterObj: any = {};
+  for (let i = 1; i <= Math.abs(maxNumbers); i++) {
+    counterObj[i.toString()] = 0;
+  }
+
+  for (let i = 0; i < Math.abs(numberOfBids) && i < bidsArr.length; i++) {
+    bidsArr[i].numbers.forEach((number) => {
+      counterObj[number] += 1;
+    });
+  }
+  const counter = Object.entries(counterObj) as [string, number][];
+  console.log('Work');
+  return counter.sort((a, b) => {
+    return b[1] - a[1];
+  });
+};
+
+export const getSelectedNumberOfNumbers = (selectedNumber: number, numbers: [string, number][]) => {
+  return numbers.slice(0, Math.abs(selectedNumber));
 };

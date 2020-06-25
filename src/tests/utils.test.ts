@@ -7,6 +7,7 @@ import {
   singeLottoBidOb,
   listWithMissingBids,
   mergedBidsArr,
+  forCounter,
 } from '../utils/mockedData';
 import {
   makeArrayOfBids,
@@ -22,6 +23,8 @@ import {
   findMissingBids,
   mergeBids,
   popOldBids,
+  countPrimaryNumbers,
+  getSelectedNumberOfNumbers,
 } from '../utils/utils';
 
 import {
@@ -179,7 +182,7 @@ describe('-- sortAllBidsArr', () => {
 
 describe('-- findMissingBids', () => {
   test('return array of missing bids id', () => {
-    expect(findMissingBids(listWithMissingBids)).toEqual([6409, 6410]);
+    expect(findMissingBids(listWithMissingBids)).toEqual([6410, 6409]);
   });
 });
 
@@ -203,5 +206,24 @@ describe('-- mergeBids', () => {
   const newBid = [new LottoBid('6410', '06-05-20', ['11', '16', '25', '38', '42', '44'])];
   test('merges allBidsArr with newBids, checks if there is not to many bids', () => {
     expect(mergeBids(testList, newBid, 2)).toEqual(mergedBidsArr);
+  });
+});
+
+describe('--countPrimaryNumbers', () => {
+  test('counts numbers from bids and return object with stats', () => {
+    const counter: [string, number][] = countPrimaryNumbers(forCounter, 49, 5);
+    expect(counter[0][1]).toBe(2);
+    expect(counter[1][1]).toBe(1);
+    expect(counter[2][1]).toBe(1);
+    expect(counter[48][1]).toBe(0);
+  });
+});
+
+describe('--getSelectedNumberOfNumbers', () => {
+  test('returns ordered length of array', () => {
+    const counter: [string, number][] = countPrimaryNumbers(forCounter, 49, 5);
+    expect(getSelectedNumberOfNumbers(10, counter).length).toBe(10);
+    expect(getSelectedNumberOfNumbers(20, counter).length).toBe(20);
+    expect(getSelectedNumberOfNumbers(50, counter).length).toBe(49);
   });
 });

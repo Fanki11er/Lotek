@@ -209,16 +209,16 @@ export const testList = [
 
 export const listWithMissingBids = [
   {
-    bidId: '6408',
-    bidDate: '02-05-20',
-    gameName: 'Lotto',
-    numbers: ['11', '16', '25', '38', '42', '44'],
-  },
-  {
     bidId: '6411',
     bidDate: '05-05-20',
     gameName: 'Lotto',
     numbers: ['21', '28', '29', '39', '45', '49'],
+  },
+  {
+    bidId: '6408',
+    bidDate: '02-05-20',
+    gameName: 'Lotto',
+    numbers: ['11', '16', '25', '38', '42', '44'],
   },
 ];
 
@@ -241,5 +241,20 @@ export const mergedBidsArr = [
     bidDate: '05-05-20',
     gameName: 'Lotto',
     numbers: ['21', '28', '29', '39', '45', '49'],
+  },
+];
+
+export const forCounter = [
+  {
+    bidId: '6410',
+    bidDate: '06-05-20',
+    gameName: 'Lotto',
+    numbers: ['11', '16', '25', '38', '42', '44'],
+  },
+  {
+    bidId: '6409',
+    bidDate: '05-05-20',
+    gameName: 'Lotto',
+    numbers: ['11', '28', '29', '39', '45', '49'],
   },
 ];

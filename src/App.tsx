@@ -4,6 +4,7 @@ import GlobalStyle from './themes/GlobalStyle';
 import theme from './themes/mainTheme';
 import { Provider } from 'react-redux';
 import store from './store/store';
+import MainProviders from './Providers/MainProviders';
 import LottoView from './views/LottoView/LottoView';
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
     <Provider store={store}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <LottoView />
+        <MainProviders>
+          <LottoView />
+        </MainProviders>
       </ThemeProvider>
     </Provider>
   );
