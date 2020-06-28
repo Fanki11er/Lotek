@@ -38,6 +38,7 @@ const StyledList = styled.ul`
   padding: 0;
   height: 155px;
   align-items: center;
+  transition: opacity 0.5s;
 `;
 
 const StyledInfo = styled.div`
@@ -73,7 +74,7 @@ const NewBidsList = (props: Props) => {
     <StyledWrapper schema={schema}>
       <StyledHeader schema={schema}>{bidName}</StyledHeader>
       {newBidsList.length ? (
-        <StyledList className={'withScroll'} data-testid={'new-bids-list'}>
+        <StyledList className={'withScroll showElement'} data-testid={'new-bids-list'}>
           {renderBidRows(newBidsList)}
         </StyledList>
       ) : (

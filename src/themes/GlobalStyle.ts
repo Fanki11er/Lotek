@@ -45,6 +45,26 @@ const GlobalStyle = createGlobalStyle`
   }
 
     }
+
+    .notActive {
+      pointer-events: none;
+      border: 2px solid ${theme.transparentGray};
+      color: ${theme.transparentGray};
+      background-color: transparent;
+    }
+
+    .showElement {
+      opacity: 0;
+      animation-name: show;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+
+      @keyframes show {
+        to {
+          opacity: 1;
+        }
+      }
+    }
 `;
 
 export default GlobalStyle;

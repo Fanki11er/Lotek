@@ -22,12 +22,13 @@ const StyledQuantity = styled.div`
   height: 25px;
   color: ${({ theme }) => theme.green};
   text-align: center;
+  transition: opacity 0.4s;
 `;
 
 const NumbersStatsRow = (props: Props) => {
   const { schema, ballNumber, quantity } = props;
   return (
-    <StyledWrapper>
+    <StyledWrapper className={'showElement'}>
       <NumberBall schema={schema}>{ballNumber}</NumberBall>
       <StyledQuantity>{quantity}</StyledQuantity>
     </StyledWrapper>

@@ -175,7 +175,6 @@ export const countPrimaryNumbers = (
     });
   }
   const counter = Object.entries(counterObj) as [string, number][];
-  console.log('Work');
   return counter.sort((a, b) => {
     return b[1] - a[1];
   });

@@ -30,8 +30,16 @@ const LottoView = () => {
       <StyledTopWrapper>
         <NewBidsGetter />
         <NumbersStatsSection>
-          <NumbersStatusInfo numbersList={lottoBids} colorSchema={lottoColorSchema} />
-          <NumbersStatusInfo numbersList={lottoPlusBids} colorSchema={lottoPlusColorSchema} />
+          <NumbersStatusInfo
+            numbersList={lottoBids}
+            colorSchema={lottoColorSchema}
+            gameNumberOfNumbers={49}
+          />
+          <NumbersStatusInfo
+            numbersList={lottoPlusBids}
+            colorSchema={lottoPlusColorSchema}
+            gameNumberOfNumbers={49}
+          />
         </NumbersStatsSection>
       </StyledTopWrapper>
     </StyledWrapper>
