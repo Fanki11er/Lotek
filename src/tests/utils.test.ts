@@ -8,6 +8,7 @@ import {
   listWithMissingBids,
   mergedBidsArr,
   forCounter,
+  testLuckySixArr,
 } from '../utils/mockedData';
 import {
   makeArrayOfBids,
@@ -25,6 +26,8 @@ import {
   popOldBids,
   countPrimaryNumbers,
   getSelectedNumberOfNumbers,
+  makeLuckyNumbers,
+  fetchLuckyNumbers,
 } from '../utils/utils';
 
 import {
@@ -36,7 +39,7 @@ import {
   notNecessarySigns,
 } from '../utils/regExps';
 import { LottoBid } from '../utils/classes';
-import { whiteSigns } from '../utils/types';
+import { whiteSigns, SingleNumbersStats } from '../utils/types';
 
 describe('-- checkForBids', () => {
   test('return bidsArr if there are some bids', () => {
@@ -101,7 +104,7 @@ describe('-- getBidProperty', () => {
   });
 
   test('return correct date', () => {
-    const data: string = '01-02-20';
+    const data: string = '01.02.2020';
     const dataOfBid: boolean = getBidProperty(data, dateRegExp);
     expect(dataOfBid).toBe(true);
   });
@@ -121,7 +124,7 @@ describe('-- makeBidProperty', () => {
 
 describe('-- makeLottoBidObj', () => {
   test('Creates correct bid object', () => {
-    const referenceObj: LottoBid = new LottoBid('6409', '05-05-20', [
+    const referenceObj: LottoBid = new LottoBid('6409', '05.05.2020', [
       '21',
       '28',
       '29',
@@ -194,7 +197,7 @@ describe('-- popOldBids', () => {
     expect(listToPop).toEqual([
       {
         bidId: '6409',
-        bidDate: '05-05-20',
+        bidDate: '05.05.2020',
         gameName: 'Lotto',
         numbers: ['21', '28', '29', '39', '45', '49'],
       },
@@ -203,7 +206,7 @@ describe('-- popOldBids', () => {
 });
 
 describe('-- mergeBids', () => {
-  const newBid = [new LottoBid('6410', '06-05-20', ['11', '16', '25', '38', '42', '44'])];
+  const newBid = [new LottoBid('6410', '06.05.2020', ['11', '16', '25', '38', '42', '44'])];
   test('merges allBidsArr with newBids, checks if there is not to many bids', () => {
     expect(mergeBids(testList, newBid, 2)).toEqual(mergedBidsArr);
   });
@@ -225,5 +228,20 @@ describe('--getSelectedNumberOfNumbers', () => {
     expect(getSelectedNumberOfNumbers(10, counter).length).toBe(10);
     expect(getSelectedNumberOfNumbers(20, counter).length).toBe(20);
     expect(getSelectedNumberOfNumbers(50, counter).length).toBe(49);
+  });
+});
+
+describe.skip('--makeLuckyNumbers', () => {
+  test('return omy six best numbers', () => {
+    //expect(makeLuckyNumbers(testLuckySixArr).length).toBe(6);
+  });
+});
+
+describe.skip('--fetchLuckyNumbers', () => {
+  test('fetch correct number of lucky numbers', () => {
+    const numberOfNumbers = 6;
+    expect(fetchLuckyNumbers(testLuckySixArr as [string, number][], numberOfNumbers).length).toBe(
+      numberOfNumbers,
+    );
   });
 });

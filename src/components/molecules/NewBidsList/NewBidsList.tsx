@@ -5,6 +5,7 @@ import { bidColorSchema, bidsTypes } from '../../../utils/types';
 import { LottoBid } from '../../../utils/classes';
 import StandardButton from '../../atoms/StandardButton/StandardButton';
 import BidListRow from '../BidsListRow/BidListRow';
+import useMergeBids from '../../../Hooks/useMergeBids';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -66,6 +67,7 @@ const NewBidsList = (props: Props) => {
   } = props;
 
   const dispatch = useDispatch();
+  const mergeBids = useMergeBids(bidType, newBidsList);
 
   const renderBidRows = (newBidsList: LottoBid[]) => {
     return newBidsList.map((bid) => <BidListRow bid={bid} schema={schema} key={bid.bidId} />);
@@ -82,7 +84,8 @@ const NewBidsList = (props: Props) => {
       )}
       <StyledButton
         onClick={() => {
-          dispatch(merge(newBidsList));
+          //dispatch(merge(newBidsList));
+          mergeBids();
           reset(bidType);
         }}
         data-testid={'add-button'}

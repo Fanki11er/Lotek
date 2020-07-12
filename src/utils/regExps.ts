@@ -13,6 +13,6 @@ export const lottoPlusRegSettings: RegexObj = {
   endCondition: 'Super',
 };
 
-export const dateRegExp: RegExp = /^\d{2}[-]\d{2}[-]\d{2}$/;
+export const dateRegExp: RegExp = /^\d{2}[.]\d{2}[.]\d{4}$/;
 
 export const notNecessarySigns: whiteSigns[] = [whiteSigns.coma, whiteSigns.eol, whiteSigns.tab];

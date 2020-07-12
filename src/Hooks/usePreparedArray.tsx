@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { countPrimaryNumbers, getSelectedNumberOfNumbers } from '../utils/utils';
 import { LottoBid } from '../utils/classes';
 
@@ -12,7 +12,7 @@ const usePreparedArray = (
 
   const countedList = useMemo(() => {
     return countPrimaryNumbers(numbersList, maxNumbers, bidsNumber);
-  }, [numbersList, bidsNumber]);
+  }, [numbersList, bidsNumber, maxNumbers]);
 
   useEffect(() => {
     countedList.length

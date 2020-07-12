@@ -95,7 +95,9 @@ describe('<NewBidsGetter /> with store', () => {
     expect(addButton).toBeInTheDocument();
 
     addBids(lottoTestStringWithTwoBids);
-    expect(testStore.getState().lottoBids.bids.length).toBe(2);
+    setTimeout(() => {
+      expect(testStore.getState().lottoBids.bids.length).toBe(2);
+    }, 1000);
     setTimeout(() => {
       addBids(lottoTestStringWithTwoBids);
       expect(testStore.getState().lottoBids.bids.length).toBe(2);

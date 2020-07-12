@@ -1,4 +1,4 @@
-import { RegexObj, whiteSigns } from './types';
+import { RegexObj, whiteSigns, SingleNumbersStats } from './types';
 import { LottoBid } from './classes';
 import { idRegExp, dateRegExp, lottoNumbersRegExp, notNecessarySigns } from './regExps';
 export const checkForBids = (
@@ -182,4 +182,69 @@ export const countPrimaryNumbers = (
 
 export const getSelectedNumberOfNumbers = (selectedNumber: number, numbers: [string, number][]) => {
   return numbers.slice(0, Math.abs(selectedNumber));
+};
+
+export const fetchLuckyNumbers = (
+  numbers: [string, number][],
+  numberOfLuckyNumbers: number,
+): string[] => {
+  const luckyNumbers: string[] = [];
+  let difference = numberOfLuckyNumbers;
+
+  const getBestNumbers = (numbers: [string, number][]) => {
+    const biggestAmount = numbers[0][1];
+    return numbers.filter(([, amount]) => amount === biggestAmount);
+  };
+
+  const getPrevAmount = (numbers: [string, number][]) => {
+    return numbers[0][1];
+  };
+
+  const getNextNumbers = (difference: number, numbers: [string, number][], prevAmount: number) => {
+    const filteredNumbers = numbers.filter(([, amount]) => amount < prevAmount);
+    const biggestAmount = filteredNumbers[0][1];
+    const complementaryNumbers = filteredNumbers.filter(([, amount]) => amount === biggestAmount);
+    if (complementaryNumbers.length > difference) {
+      const newNumbers: string[] = [];
+      while (newNumbers.length < difference) {
+        const index = Number((Math.random() * (complementaryNumbers.length - 1)).toFixed(0));
+        if (!newNumbers.includes(complementaryNumbers[index][0]))
+          newNumbers.push(complementaryNumbers[index][0]);
+      }
+      return newNumbers;
+    }
+    return complementaryNumbers.map((number) => number[0]);
+  };
+
+  const bestNumbers = getBestNumbers(numbers);
+  if (bestNumbers.length <= numberOfLuckyNumbers)
+    luckyNumbers.push(...bestNumbers.map((number) => number[0]));
+  else {
+    const newNumbers: string[] = [];
+    while (newNumbers.length < numberOfLuckyNumbers) {
+      const index = Number((Math.random() * (bestNumbers.length - 1)).toFixed(0));
+      if (!newNumbers.includes(bestNumbers[index][0])) newNumbers.push(bestNumbers[index][0]);
+    }
+    luckyNumbers.push(...newNumbers.map((number) => number[0]));
+  }
+
+  difference = numberOfLuckyNumbers - luckyNumbers.length;
+
+  while (difference > 0) {
+    const newNumbers = getNextNumbers(difference, numbers, getPrevAmount(bestNumbers));
+    luckyNumbers.push(...newNumbers);
+    difference = numberOfLuckyNumbers - luckyNumbers.length;
+  }
+  return luckyNumbers;
+};
+
+export const makeLuckyNumbers = (
+  bidsArr: LottoBid[],
+  maxNumbers: number,
+  numberOfBids: number,
+  numberOfNumbers: number,
+): string[] => {
+  const countedNumbers = countPrimaryNumbers(bidsArr, maxNumbers, numberOfBids);
+
+  return fetchLuckyNumbers(countedNumbers, numberOfNumbers);
 };

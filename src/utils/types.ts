@@ -69,3 +69,13 @@ export type SingleNumbersStats = {
   ballNumber: number;
   quantity: number;
 };
+
+export type LottoBidTypes = 'lotto' | 'lottoPlus';
+
+export interface LottoBidsContext {
+  lottoBids: LottoBid[] | [];
+}
+
+export interface LottoPlusBidsContext {
+  lottoPlusBids: LottoBid[] | [];
+}

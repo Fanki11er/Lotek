@@ -6,6 +6,10 @@ import NumbersStatusInfo from '../../components/organisms/NumbersStatsInfo/Numbe
 import { LottoBidsContext } from '../../Providers/LottoBidsProvider';
 import { LottoPlusBidsContext } from '../../Providers/LottoPlusBidsProvider';
 import { lottoColorSchema, lottoPlusColorSchema } from '../../themes/mainTheme';
+import useListenerToDatabase from '../../Hooks/useListenerToDatabase';
+import { lottoBidsEndpoint, lottoPlusBidsEndpoint } from '../../Firebase/baseEndpoints';
+import LuckyNumbersGenerator from '../../components/organisms/LuckyNumbersGenerator/LuckyNumbersGenerator';
+import LuckyLottoPlusGenerator from '../../components/molecules/LuckyLottoAndPlusGenerator/LuckyLottoAndPlusgenerator';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -25,6 +29,8 @@ const StyledTopWrapper = styled.div`
 const LottoView = () => {
   const { lottoBids } = useContext(LottoBidsContext);
   const { lottoPlusBids } = useContext(LottoPlusBidsContext);
+  useListenerToDatabase(lottoBidsEndpoint, 'lotto');
+  useListenerToDatabase(lottoPlusBidsEndpoint, 'lottoPlus');
   return (
     <StyledWrapper>
       <StyledTopWrapper>
@@ -41,6 +47,20 @@ const LottoView = () => {
             gameNumberOfNumbers={49}
           />
         </NumbersStatsSection>
+      </StyledTopWrapper>
+      <StyledTopWrapper>
+        <LuckyNumbersGenerator>
+          <LuckyLottoPlusGenerator
+            buttonLabel={'Generuj Lotto'}
+            bidsList={lottoBids}
+            schema={lottoColorSchema}
+          />
+          <LuckyLottoPlusGenerator
+            buttonLabel={'Generuj Lotto Plus'}
+            bidsList={lottoPlusBids}
+            schema={lottoPlusColorSchema}
+          />
+        </LuckyNumbersGenerator>
       </StyledTopWrapper>
     </StyledWrapper>
   );

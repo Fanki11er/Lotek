@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormikProps, withFormik, FieldHelperProps } from 'formik';
+import { FormikProps, withFormik } from 'formik';
 import SelectNumberInput from '../../atoms/SelecNumbertInput/SelectNumberInput';
 
 const StyledForm = styled.form`

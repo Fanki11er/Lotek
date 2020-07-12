@@ -1,13 +1,9 @@
 import React, { createContext } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../utils/types';
+import { RootState, LottoBidsContext as LottoBidsContextInterface } from '../utils/types';
 import { LottoBid } from '../utils/classes';
 
-interface LottoBidsContext {
-  lottoBids: LottoBid[] | [];
-}
-
-export const LottoBidsContext: React.Context<LottoBidsContext> = createContext({
+export const LottoBidsContext: React.Context<LottoBidsContextInterface> = createContext({
   lottoBids: [] as LottoBid[] | [],
 });
 

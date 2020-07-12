@@ -1,7 +1,6 @@
-import React, { EventHandler, ChangeEvent, ReactElement } from 'react';
-import styled, { StyledComponent } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import { Field } from 'formik';
-import { EventType } from '@testing-library/react';
 
 const StyledLabel = styled.label`
   display: flex;

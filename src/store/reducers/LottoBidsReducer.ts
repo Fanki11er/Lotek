@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { MERGE_LOTTO_BIDS } from '../actions/lottoBidsActions';
-import { mergeBids } from '../../utils/utils';
+import { GET_LOTTO_BIDS_FROM_DATABASE } from '../actions/lottoBidsActions';
+//import { mergeBids } from '../../utils/utils';
 import { lottoReducerInitialState } from '../../utils/types';
 
 const initial: lottoReducerInitialState = {
@@ -9,12 +9,18 @@ const initial: lottoReducerInitialState = {
 };
 
 const lottoBidsReducer = createReducer(initial, {
-  [MERGE_LOTTO_BIDS]: (state, action) => {
-    const {
-      payload: { newBids },
-    } = action;
+  // [MERGE_LOTTO_BIDS]: (state, action) => {
+  // const {
+  // payload: { newBids },
+  // } = action;
 
-    state.bids = mergeBids(state.bids, newBids);
+  // state.bids = mergeBids(state.bids, newBids);
+  // },
+  [GET_LOTTO_BIDS_FROM_DATABASE]: (state, action) => {
+    const {
+      payload: { bids },
+    } = action;
+    state.bids = bids;
   },
 });
 

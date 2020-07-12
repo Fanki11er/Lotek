@@ -8,6 +8,7 @@ const SectionWrapper = styled.div`
   border: 3px solid ${({ theme }) => theme.lottoYellow};
   border-radius: 15px;
   padding: 25px;
+  margin-top: 30px;
 `;
 
 export default SectionWrapper;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NumbersStatsRow from '../../atoms/NumbersStatsRow/NumbersStatsRow';
-import { SingleNumbersStats, bidColorSchema } from '../../../utils/types';
+import { bidColorSchema } from '../../../utils/types';
 
 const StyledList = styled.ul`
   display: flex;
