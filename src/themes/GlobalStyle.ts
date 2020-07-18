@@ -2,8 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 import theme from './mainTheme';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+
 
 
     *, *::before, *::after {

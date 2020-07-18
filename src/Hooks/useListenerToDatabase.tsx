@@ -15,12 +15,12 @@ const useListenerToDatabase = (path: DatabaseEndpoint, type: LottoBidTypes) => {
           const data = Object.values(snapshot.val()).flat() as LottoBid[];
 
           dispatch(getBidsFromDatabase(type, data));
-        }
+        } else dispatch(getBidsFromDatabase(type, []));
       });
     };
     const listener = getData(type);
     return () => db.ref(path).off('value', listener);
-  }, []);
+  }, [path, type, dispatch]);
 };
 
 export default useListenerToDatabase;

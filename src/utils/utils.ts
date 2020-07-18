@@ -1,4 +1,4 @@
-import { RegexObj, whiteSigns, SingleNumbersStats } from './types';
+import { RegexObj, whiteSigns, LottoSet } from './types';
 import { LottoBid } from './classes';
 import { idRegExp, dateRegExp, lottoNumbersRegExp, notNecessarySigns } from './regExps';
 export const checkForBids = (
@@ -189,20 +189,21 @@ export const fetchLuckyNumbers = (
   numberOfLuckyNumbers: number,
 ): string[] => {
   const luckyNumbers: string[] = [];
+  let actualAmount: number = -1;
   let difference = numberOfLuckyNumbers;
 
   const getBestNumbers = (numbers: [string, number][]) => {
     const biggestAmount = numbers[0][1];
+    actualAmount = biggestAmount;
     return numbers.filter(([, amount]) => amount === biggestAmount);
   };
 
-  const getPrevAmount = (numbers: [string, number][]) => {
-    return numbers[0][1];
-  };
-
-  const getNextNumbers = (difference: number, numbers: [string, number][], prevAmount: number) => {
-    const filteredNumbers = numbers.filter(([, amount]) => amount < prevAmount);
+  const getNextNumbers = (difference: number, numbers: [string, number][], lastAmount: number) => {
+    if (actualAmount < 0) return [];
+    const filteredNumbers = numbers.filter(([, amount]) => amount < lastAmount);
     const biggestAmount = filteredNumbers[0][1];
+    actualAmount = biggestAmount;
+
     const complementaryNumbers = filteredNumbers.filter(([, amount]) => amount === biggestAmount);
     if (complementaryNumbers.length > difference) {
       const newNumbers: string[] = [];
@@ -213,6 +214,7 @@ export const fetchLuckyNumbers = (
       }
       return newNumbers;
     }
+
     return complementaryNumbers.map((number) => number[0]);
   };
 
@@ -231,11 +233,11 @@ export const fetchLuckyNumbers = (
   difference = numberOfLuckyNumbers - luckyNumbers.length;
 
   while (difference > 0) {
-    const newNumbers = getNextNumbers(difference, numbers, getPrevAmount(bestNumbers));
+    const newNumbers = getNextNumbers(difference, numbers, actualAmount);
     luckyNumbers.push(...newNumbers);
     difference = numberOfLuckyNumbers - luckyNumbers.length;
   }
-  return luckyNumbers;
+  return sortNumbers(luckyNumbers);
 };
 
 export const makeLuckyNumbers = (
@@ -247,4 +249,31 @@ export const makeLuckyNumbers = (
   const countedNumbers = countPrimaryNumbers(bidsArr, maxNumbers, numberOfBids);
 
   return fetchLuckyNumbers(countedNumbers, numberOfNumbers);
+};
+
+export const sortAllSetsArr = (allSetsArr: LottoSet[]): LottoSet[] => {
+  return allSetsArr.sort((firstSet, secondSet) => {
+    return (
+      new Date(secondSet.createDate).getMilliseconds() -
+      new Date(firstSet.createDate).getMilliseconds()
+    );
+  });
+};
+
+export const mergeSets = (allSetsArr: LottoSet[], newSet: LottoSet): LottoSet[] => {
+  const processArr = [...allSetsArr];
+
+  const existingElements = processArr.filter(({ id }) => {
+    return id === newSet.id;
+  });
+
+  !existingElements.length && processArr.unshift(newSet);
+
+  return sortAllSetsArr(processArr);
+};
+
+export const sortNumbers = (arr: string[]) => {
+  return [...arr].sort((a, b) => {
+    return Number(a) - Number(b);
+  });
 };

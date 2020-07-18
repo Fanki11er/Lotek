@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { bidColorSchema, bidsTypes } from '../../../utils/types';
 import { LottoBid } from '../../../utils/classes';
 import StandardButton from '../../atoms/StandardButton/StandardButton';
@@ -63,10 +62,8 @@ const NewBidsList = (props: Props) => {
     schema,
     bidName,
     newBidsList,
-    buttonActions: { merge, reset, bidType },
+    buttonActions: { reset, bidType },
   } = props;
-
-  const dispatch = useDispatch();
   const mergeBids = useMergeBids(bidType, newBidsList);
 
   const renderBidRows = (newBidsList: LottoBid[]) => {
@@ -84,7 +81,6 @@ const NewBidsList = (props: Props) => {
       )}
       <StyledButton
         onClick={() => {
-          //dispatch(merge(newBidsList));
           mergeBids();
           reset(bidType);
         }}

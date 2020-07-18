@@ -1,4 +1,4 @@
-import { createAction, PrepareAction } from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 import { LottoBid } from '../../utils/classes';
 import { LottoBidTypes } from '../../utils/types';
 
@@ -48,14 +48,3 @@ export const getBidsFromDatabase = (type: LottoBidTypes, bids: LottoBid[]) => {
 
   return createAction(getTypeOfAction(type), () => makeData(bids))();
 };
-
-/*export const getLottoPlusBidsFromDataBase = createAction(
-  GET_LOTTO_PLUS_BIDS_FROM_DATABASE,
-  (bids: LottoBid[]) => {
-    return {
-      payload: {
-        bids,
-      },
-    };
-  },
-);*/

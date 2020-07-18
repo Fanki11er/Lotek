@@ -7,9 +7,18 @@ import { LottoBidsContext } from '../../Providers/LottoBidsProvider';
 import { LottoPlusBidsContext } from '../../Providers/LottoPlusBidsProvider';
 import { lottoColorSchema, lottoPlusColorSchema } from '../../themes/mainTheme';
 import useListenerToDatabase from '../../Hooks/useListenerToDatabase';
-import { lottoBidsEndpoint, lottoPlusBidsEndpoint } from '../../Firebase/baseEndpoints';
+import {
+  lottoBidsEndpoint,
+  lottoPlusBidsEndpoint,
+  lottoSetsEndpoint,
+  lottoPlusSetsEndpoint,
+} from '../../Firebase/baseEndpoints';
 import LuckyNumbersGenerator from '../../components/organisms/LuckyNumbersGenerator/LuckyNumbersGenerator';
 import LuckyLottoPlusGenerator from '../../components/molecules/LuckyLottoAndPlusGenerator/LuckyLottoAndPlusgenerator';
+import SavedNumbersSets from '../../components/organisms/SavedNumbresSets/SavedNumbersSets';
+import useListenerForSets from '../../Hooks/useListenerForSets';
+import { LottoSetsContext } from '../../Providers/LottoSetsProvider';
+import { LottoPlusSetsContext } from '../../Providers/LottoPlusSetsProvider';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -29,8 +38,12 @@ const StyledTopWrapper = styled.div`
 const LottoView = () => {
   const { lottoBids } = useContext(LottoBidsContext);
   const { lottoPlusBids } = useContext(LottoPlusBidsContext);
+  const { lottoSets } = useContext(LottoSetsContext);
+  const { lottoPlusSets } = useContext(LottoPlusSetsContext);
   useListenerToDatabase(lottoBidsEndpoint, 'lotto');
   useListenerToDatabase(lottoPlusBidsEndpoint, 'lottoPlus');
+  useListenerForSets(lottoSetsEndpoint, 'lotto');
+  useListenerForSets(lottoPlusSetsEndpoint, 'lottoPlus');
   return (
     <StyledWrapper>
       <StyledTopWrapper>
@@ -54,13 +67,16 @@ const LottoView = () => {
             buttonLabel={'Generuj Lotto'}
             bidsList={lottoBids}
             schema={lottoColorSchema}
+            type={'lotto'}
           />
           <LuckyLottoPlusGenerator
             buttonLabel={'Generuj Lotto Plus'}
             bidsList={lottoPlusBids}
             schema={lottoPlusColorSchema}
+            type={'lottoPlus'}
           />
         </LuckyNumbersGenerator>
+        <SavedNumbersSets lottoSets={lottoSets} lottoPlusSets={lottoPlusSets} />
       </StyledTopWrapper>
     </StyledWrapper>
   );

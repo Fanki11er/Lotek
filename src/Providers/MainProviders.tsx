@@ -1,6 +1,8 @@
 import React, { Context } from 'react';
 import LottoBidsProvider from './LottoBidsProvider';
 import LottoPlusBidsProvider from '../Providers/LottoPlusBidsProvider';
+import LottoSetsProvider from './LottoSetsProvider';
+import LottoPlusSetsProvider from './LottoPlusSetsProvider';
 
 type Props = {
   contexts: any;
@@ -16,7 +18,14 @@ const ProviderComposer: React.FC<Props> = ({ contexts, children }) =>
   );
 
 const MainProvider: React.FC = ({ children }) => (
-  <ProviderComposer contexts={[<LottoBidsProvider />, <LottoPlusBidsProvider />]}>
+  <ProviderComposer
+    contexts={[
+      <LottoBidsProvider />,
+      <LottoPlusBidsProvider />,
+      <LottoSetsProvider />,
+      <LottoPlusSetsProvider />,
+    ]}
+  >
     {children}
   </ProviderComposer>
 );

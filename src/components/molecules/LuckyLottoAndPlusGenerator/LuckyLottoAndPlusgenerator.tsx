@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import StandardButton from '../../atoms/StandardButton/StandardButton';
 import { LottoBid } from '../../../utils/classes';
 import NumberBall from '../../atoms/NumberBall/NumberBall';
-import { bidColorSchema } from '../../../utils/types';
+import { bidColorSchema, LottoBidTypes } from '../../../utils/types';
 import { makeLuckyNumbers } from '../../../utils/utils';
+import useNumbersSets from '../../../Hooks/useNumbersSets';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -33,11 +34,13 @@ interface Props {
   buttonLabel: string;
   bidsList: LottoBid[];
   schema: bidColorSchema;
+  type: LottoBidTypes;
 }
 
 const LuckyLottoPlusGenerator = (props: Props) => {
-  const { buttonLabel, bidsList, schema } = props;
+  const { buttonLabel, bidsList, schema, type } = props;
   const [luckyNumbers, setLuckyNumbers] = useState<string[]>([]);
+  const sendSets = useNumbersSets(type, luckyNumbers);
 
   const generateLuckyNumbers = () => {
     setLuckyNumbers(makeLuckyNumbers(bidsList, 49, 15, 6));
@@ -56,9 +59,10 @@ const LuckyLottoPlusGenerator = (props: Props) => {
     <StyledWrapper>
       <StyledButton onClick={() => generateLuckyNumbers()}>{buttonLabel}</StyledButton>
       <StyledBallsWrapper>{renderLuckyNumbers(luckyNumbers)}</StyledBallsWrapper>
-      <StandardButton>Zapisz</StandardButton>
+      <StandardButton onClick={() => sendSets()}>Zapisz</StandardButton>
     </StyledWrapper>
   );
 };
 
 export default LuckyLottoPlusGenerator;
+//! useNumbersSets

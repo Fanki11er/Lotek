@@ -58,6 +58,10 @@ export type lottoReducerInitialState = {
   numbersStats: number[];
 };
 
+export type lottoSetsReducerInitialState = {
+  sets: LottoSet[];
+};
+
 export type RootState = ReturnType<typeof store.getState>;
 
 export enum bidsTypes {
@@ -78,4 +82,19 @@ export interface LottoBidsContext {
 
 export interface LottoPlusBidsContext {
   lottoPlusBids: LottoBid[] | [];
+}
+
+export interface LottoSet {
+  createDate: string;
+  numbers: string[];
+  id: string;
+  type: LottoBidTypes;
+}
+
+export interface LottoSetsContext {
+  lottoSets: LottoSet[] | [];
+}
+
+export interface LottoPlusSetsContext {
+  lottoPlusSets: LottoSet[] | [];
 }
